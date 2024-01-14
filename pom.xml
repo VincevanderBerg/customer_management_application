@@ -9,12 +9,16 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.codemountain</groupId>
-    <artifactId>customer-management-application</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <artifactId>customer-api</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
     <name>customer-management-application</name>
+    <organization>
+        <name>codemountain</name>
+    </organization>
     <description>An application built with the Spring framework to manage customers.</description>
     <properties>
         <java.version>17</java.version>
+        <docker.username>vincevanderberg</docker.username>
     </properties>
     <dependencies>
         <dependency>
@@ -91,6 +95,7 @@
 
     <build>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -138,6 +143,29 @@
                     <systemPropertyVariables>
                         <test.server.port>${tomcat.http.port}</test.server.port>
                     </systemPropertyVariables>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <from>
+                        <image>eclipse-temurin:17</image>
+                        <platforms>
+                            <platform>
+                                <architecture>amd64</architecture>
+                                <os>linux</os>
+                            </platform>
+                        </platforms>
+                    </from>
+                    <to>
+                        <image>docker.io/${docker.username}/${project.artifactId}:${project.version}</image>
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
                 </configuration>
             </plugin>
 

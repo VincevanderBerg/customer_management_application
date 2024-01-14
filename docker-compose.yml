@@ -14,6 +14,20 @@ services:
     networks:
       - postgres
     restart: unless-stopped
+
+  customer-api:
+    container_name: customer-api
+    image: vincevanderberg/customer-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/customer_database
+    ports:
+      - "8080:1234"
+    networks:
+      - postgres
+    restart: unless-stopped
+    depends_on:
+      - db
+
   pgadmin:
     container_name: pgadmin
     image: dpage/pgadmin4
